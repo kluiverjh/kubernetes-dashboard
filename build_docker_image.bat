@@ -1,1 +1,1 @@
-docker build kluiverjh/kubernetes-dashboard .
+docker build --no-cache -t kluiverjh/kubernetes-dashboard .
