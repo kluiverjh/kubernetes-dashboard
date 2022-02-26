@@ -4,5 +4,5 @@ metadata:
   name: dashboard-role
 rules:
 - apiGroups: [""]
-  resources: ["secrects"]
+  resources: ["secrets"]
   verbs: ["*"]
