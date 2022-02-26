@@ -7,7 +7,6 @@ subjects:
   - kind: ServiceAccount
     name: internal-kubectl
     namespace: test
-    apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: cluster-admin
