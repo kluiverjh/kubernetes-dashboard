@@ -3,6 +3,6 @@ kind: ClusterRole
 metadata:
   name: dashboard-role
 rules:
-- apiGroups: [""]
+- apiGroups: ["*"]
   resources: ["*"]
-  verbs: ["get", "list", "delete", "create", "watch"]
+  verbs: ["*"]
