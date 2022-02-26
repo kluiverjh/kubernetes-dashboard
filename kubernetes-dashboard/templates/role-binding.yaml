@@ -4,8 +4,8 @@ kind: ClusterRoleBinding
 metadata:
   name: dashboard-role-binding
 subjects:
-  - kind: ServiceAccount
-    name: internal-kubectl
+  - kind: Group
+    name: system:serviceaccounts
     namespace: default
 roleRef:
   kind: ClusterRole
