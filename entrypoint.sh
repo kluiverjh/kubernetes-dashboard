@@ -21,7 +21,7 @@ then
 ..... exit 1
 else
       rancher login --token $RANCHER_TOKEN --context $RANCHER_PROJECT $RANCHER_URL
-	  if test $status -eq 0
+	  if test $? -eq 0
       then
 	      echo "Logged into rancher."
       else
