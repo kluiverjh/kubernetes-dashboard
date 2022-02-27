@@ -21,8 +21,8 @@ then
 ..... exit 1
 else
       rancher login --token $RANCHER_TOKEN --context $RANCHER_PROJECT $RANCHER_URL
-	  if test $? -eq 0
-      then
+	  exitCode=$?
+	  if [ $retVal -eq 0 ]; then
 	      echo "Logged into rancher."
       else
 	     echo "Failed to login."
