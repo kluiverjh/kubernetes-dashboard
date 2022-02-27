@@ -1,13 +1,34 @@
 #!/bin/bash
 
+if [ -z "$RANCHER_URL" ]
+then
+      echo "Environment variable RANCHER_URL not set"
+..... exit
+fi
+if [ -z "$RANCHER_TOKEN" ]
+then
+      echo "Environment variable RANCHER_TOKEN not set"
+..... exit
+fi
 
-context="$INPUT_CONTEXT"
+echo Login into rancher $RANCHER_URL with token $RANCHER_TOKEN
 
-RANCHER_PROJECT="${RANCHER_TOKEN:-project-missing}"
-RANCHER_TOKEN="${RANCHER_TOKEN:-token-missing}"
-RANCHER_URL="${RANCHER_URL:https://rancher/v3}"
 
-rancher login --token $RANCHER_TOKEN --context $RANCHER_PROJECT $RANCHER_URL
-# rancher kubectl $*
+if [ -z "$RANCHER_PROJECT" ]
+then
+      echo "Environment variable RANCHER_PROJECT not set (see value from PROJECT ID column)"
+	  rancher login --token $RANCHER_TOKEN $RANCHER_URL
+..... exit 1
+else
+      rancher login --token $RANCHER_TOKEN --context $RANCHER_PROJECT $RANCHER_URL
+	  if test $status -eq 0
+      then
+	      echo "Logged into rancher."
+      else
+	     echo "Failed to login."
+		 rancher login --token $RANCHER_TOKEN $RANCHER_URL
+		 exit 1
+      fi
+fi
 
 /bin/bash -c "trap : TERM INT; sleep infinity & wait"
