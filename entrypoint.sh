@@ -12,7 +12,7 @@ then
 fi
 
 echo Login into rancher $RANCHER_URL with token $RANCHER_TOKEN
-
+echo Project is $RANCHER_PROJECT
 
 if [ -z "$RANCHER_PROJECT" ]
 then
@@ -20,15 +20,15 @@ then
 	  rancher login --token $RANCHER_TOKEN $RANCHER_URL
 ..... exit 1
 else
-      rancher login --token $RANCHER_TOKEN --context $RANCHER_PROJECT $RANCHER_URL
-      exitCode=$?
-      if [ $exitCode -eq 0 ]; then
-         echo "Logged into rancher."
-      else
-	     echo "Failed to login."
-		 rancher login --token $RANCHER_TOKEN $RANCHER_URL
-		 exit 1
-      fi
+   rancher login --token $RANCHER_TOKEN --context $RANCHER_PROJECT $RANCHER_URL
+   if [ $? -eq 0 ] 
+   then
+      echo "Logged into rancher."
+   else
+      echo "Failed to login; check if project_id is correct."
+      rancher login --token $RANCHER_TOKEN $RANCHER_URL
+      exit 1
+   fi
 fi
 
 /bin/bash -c "trap : TERM INT; sleep infinity & wait"
