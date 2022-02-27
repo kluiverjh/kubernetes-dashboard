@@ -41,12 +41,12 @@ spec:
           - name: RANCHER_URL
             valueFrom:
                secretKeyRef:
-                  name: { .Values.dashboard.secretname }
+                  name: {{.Values.dashboard.secretname}}
                   key: RANCHER_URL          
           - name: RANCHER_TOKEN
             valueFrom:
                secretKeyRef:
-                  name: { .Values.dashboard.secretname }
+                  name: {{.Values.dashboard.secretname }}
                   key: RANCHER_TOKEN
           
 #          ports:
