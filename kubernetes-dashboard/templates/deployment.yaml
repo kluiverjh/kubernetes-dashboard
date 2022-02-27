@@ -33,6 +33,22 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          {{- range $key, $value := (get .Values.dashboard "environment") }}
+          - name: {{ $key }}
+            value: "{{ $value }}"
+          {{- end }}
+          - name: RANCHER_URL
+            valueFrom:
+               secretKeyRef:
+                  name: { .Values.dashboard.secretname }
+                  key: RANCHER_URL          
+          - name: RANCHER_TOKEN
+            valueFrom:
+               secretKeyRef:
+                  name: { .Values.dashboard.secretname }
+                  key: RANCHER_TOKEN
+          
 #          ports:
 #            - name: http
 #              containerPort: 80
