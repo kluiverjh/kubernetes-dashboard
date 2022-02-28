@@ -3,12 +3,12 @@
 if [ -z "$RANCHER_URL" ]
 then
       echo "Environment variable RANCHER_URL not set"
-..... exit
+..... exit 1
 fi
 if [ -z "$RANCHER_TOKEN" ]
 then
       echo "Environment variable RANCHER_TOKEN not set"
-..... exit
+..... exit 1
 fi
 
 echo Login into rancher $RANCHER_URL with token $RANCHER_TOKEN
@@ -31,4 +31,6 @@ else
    fi
 fi
 
+# curl -u '${ranchertoken}' -X POST -H 'Accept: application/json' -H 'Content-Type: application/json' --insecure -d '{}' '${rancheraddress}/projectCatalogs/${projectid}:${catalog}?action=refresh
+node dist/main
 /bin/bash -c "trap : TERM INT; sleep infinity & wait"
